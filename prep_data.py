@@ -16,8 +16,8 @@ con2_masked_dataset = []
 con1_masked_dataset = []
 con0_masked_dataset = []
 
-consist_dataset_2 = []
-consist_dataset_3 = []
+robust_dataset_2 = []
+robust_dataset_3 = []
 
 winowhy = []
 answers = []
@@ -110,26 +110,26 @@ with open("data/options.json","r") as o:
 #         con2_masked_dataset.append("Given "+reas_pair[0]+" and "+reas_pair[1]+". In the following sentence: \'"+wino+"\' Between \'"+options[wino][0]+"\' and \'"+options[wino][1]+"\', the term \'"+prons[wino]+"\' more likely refers to <MASKED>")
 #
 
-#below generates the consistency-checking data
+#below generates the robustency-checking data
 for wino in dataset.keys():
     cont_prompts = list(itertools.combinations(dataset[wino],r=2))
     cont_prompts_3 = list(itertools.combinations(dataset[wino],r=3))
 
     for reas_pair in cont_prompts:
-        consist_dataset_2.append("Given "+reas_pair[0]+" and "+reas_pair[1]+". In the following sentence: \'"+wino+"\' Between \'"+options[wino][0]+"\' and \'"+options[wino][1]+"\', the term \'"+prons[wino]+"\' more likely refers to <MASKED>")
-        consist_dataset_2.append("Given " + reas_pair[1] + " and " + reas_pair[0] + ". In the following sentence: \'" + wino + "\' Between \'" + options[wino][0] + "\' and \'" +options[wino][1] + "\', the term \'" + prons[wino] + "\' more likely refers to <MASKED>")
+        robust_dataset_2.append("Given "+reas_pair[0]+" and "+reas_pair[1]+". In the following sentence: \'"+wino+"\' Between \'"+options[wino][0]+"\' and \'"+options[wino][1]+"\', the term \'"+prons[wino]+"\' more likely refers to <MASKED>")
+        robust_dataset_2.append("Given " + reas_pair[1] + " and " + reas_pair[0] + ". In the following sentence: \'" + wino + "\' Between \'" + options[wino][0] + "\' and \'" +options[wino][1] + "\', the term \'" + prons[wino] + "\' more likely refers to <MASKED>")
     for reas_triple in cont_prompts_3:
-        consist_dataset_3.append("Given " + reas_triple[0] + ", " + reas_triple[1] + ", and " + reas_triple[2] + ". In the following sentence: \'" + wino + "\' Between \'" + options[wino][0] + "\' and \'" +options[wino][1] + "\', the term \'" + prons[wino] + "\' more likely refers to <MASKED>")
-        consist_dataset_3.append("Given " + reas_triple[2] + ", " + reas_triple[0] + ", and " + reas_triple[1] + ". In the following sentence: \'" + wino + "\' Between \'" + options[wino][0] + "\' and \'" +options[wino][1] + "\', the term \'" + prons[wino] + "\' more likely refers to <MASKED>")
+        robust_dataset_3.append("Given " + reas_triple[0] + ", " + reas_triple[1] + ", and " + reas_triple[2] + ". In the following sentence: \'" + wino + "\' Between \'" + options[wino][0] + "\' and \'" +options[wino][1] + "\', the term \'" + prons[wino] + "\' more likely refers to <MASKED>")
+        robust_dataset_3.append("Given " + reas_triple[2] + ", " + reas_triple[0] + ", and " + reas_triple[1] + ". In the following sentence: \'" + wino + "\' Between \'" + options[wino][0] + "\' and \'" +options[wino][1] + "\', the term \'" + prons[wino] + "\' more likely refers to <MASKED>")
 
-#the code below saves the data for prompting GPT for consistency
-with open("data/consist_masked_2.json","w") as file420:
-    file420.write(json.dumps(consist_dataset_2))
+#the code below saves the data for prompting GPT for robustness
+with open("data/rob_masked_2.json","w") as file420:
+    file420.write(json.dumps(robust_dataset_2))
 
-with open("data/consist_masked_3.json","w") as file360:
-    file360.write(json.dumps(consist_dataset_3))
+with open("data/rob_masked_3.json","w") as file360:
+    file360.write(json.dumps(robust_dataset_3))
 
-print("consistency files saved")
+print("robustness files saved")
 
 #the code below saves WinoWhy
 # with open("data/2_context_masked.json","w") as file4:

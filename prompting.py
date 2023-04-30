@@ -40,19 +40,19 @@ with open("data/1_context_masked.json","r") as file5:
 with open("data/0_context_masked.json","r") as file6:
     context_masked_0 = json.loads(file6.read())
 
-#loading data we prompt for consistency
-with open("data/consist_masked_2.json","r") as file7:
-    consist_masked_2 = json.loads(file7.read())
+#loading data we prompt for robustency
+with open("data/rob_masked_2.json", "r") as file7:
+    robust_masked_2 = json.loads(file7.read())
 
-with open("data/consist_masked_3.json","r") as file8:
-    consist_masked_3 = json.loads(file8.read())
+with open("data/rob_masked_3.json", "r") as file8:
+    robust_masked_3 = json.loads(file8.read())
 
 resp_0 = {}
 resp_1 = {}
 resp_2 = {}
 resp_3 = {}
-consist_resp_2 = {}
-consist_resp_3 = {}
+robust_resp_2 = {}
+robust_resp_3 = {}
 
 def prompt_dataset(prompts,response_dict,save_file):
     '''
@@ -70,19 +70,19 @@ def prompt_dataset(prompts,response_dict,save_file):
         print(resp.replace("\n",""))
         print("")
         response_dict[prompt] = resp.replace("\n","")
-        time.sleep(5)
+        time.sleep(7)
 
     with open(save_file,"w") as file:
         file.write(json.dumps(response_dict))
 
 #the code below prompts GPT-3 for the various amounts of context
-prompt_dataset(context_masked_0,resp_0,"responses/resp_0_masked.json")
-# prompt_dataset(context_masked_1,resp_1,"responses/resp_1_masked.json")
-# prompt_dataset(context_masked_2,resp_2,"responses/resp_2_masked.json")
-# prompt_dataset(context_masked_3,resp_3,"responses/resp_3_masked.json")
+# prompt_dataset(context_masked_0,resp_0,"responses/resp_0_masked_repro.json")
+prompt_dataset(context_masked_1,resp_1,"responses/resp_1_masked_repro.json")
+prompt_dataset(context_masked_2,resp_2,"responses/resp_2_masked_repro.json")
+prompt_dataset(context_masked_3,resp_3,"responses/resp_3_masked_repro.json")
 
-#the code below prompts GPT-3 to check for consistency
-# prompt_dataset(consist_masked_2,consist_resp_2,"responses/consist_resp_2.json")
-# prompt_dataset(consist_masked_3,consist_resp_3,"responses/consist_resp_3.json")
+#the code below prompts GPT-3 to check for robustness
+# prompt_dataset(robust_masked_2,robust_resp_2,"responses/rob_resp_2.json")
+# prompt_dataset(robust_masked_3,robust_resp_3,"responses/rob_resp_3.json")
 
 print("Responses saved")
